@@ -305,6 +305,10 @@ func (w *Writer) SetNbWorkers(n int) error {
 	return nil
 }
 
+func (w *Writer) GetCCtx() unsafe.Pointer {
+	return unsafe.Pointer(w.ctx)
+}
+
 // cSize is the recommended size of reader.compressionBuffer. This func and
 // invocation allow for a one-time check for validity.
 var cSize = func() int {
@@ -533,4 +537,8 @@ func (r *reader) Read(p []byte) (int, error) {
 			return r.decompOff, nil
 		}
 	}
+}
+
+func (r *reader) GetDCtx() unsafe.Pointer {
+	return unsafe.Pointer(r.ctx)
 }
